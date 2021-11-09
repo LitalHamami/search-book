@@ -1,0 +1,16 @@
+.login-wrapper {
+  .input-wrapper {
+    max-width: 400px;;
+    margin: 0 auto;
+    padding-bottom: 25px;
+    input{
+      margin-bottom: 10px;
+    }
+    .error-msg{
+      color: red;
+    }
+  }
+  .login-btn {
+    border: 1px solid;
+  }
+}

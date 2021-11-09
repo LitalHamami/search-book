@@ -1,0 +1,61 @@
+<div class="search-page-wrapper">
+  <div class="greeting text-center">
+    <span class="greet">Hello</span>
+    <span class="user-name"> {{userName}}</span>
+  </div>
+  <div *ngIf="books.length > 0" class="search-results container">
+    <div class="search-bar text-center row">
+      <div class="col-12">
+        <div class="search-bar text-center">
+          <form [formGroup]="searchForm">
+            <input type="text" class="form-control" [placeholder]="'Find a book by book title..'"
+                   (input)="getBookByTitle($event)" [formControlName]="'searchTitle'">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let book of books  | paginate: { itemsPerPage: 3, currentPage: currentPage}"
+           (click)="openDialogBox(content, book.id)"
+           class="item col-12 col-md-4">
+        <div class="content">
+          <div class="book-img">
+            <img src="{{book.volumeInfo.imageLinks['thumbnail']}}">
+          </div>
+          <div class="title">{{book.volumeInfo.title}}</div>
+          <div class="sub-title">{{book.volumeInfo.subtitle}}</div>
+          <div class="authors">by {{book.volumeInfo.authors}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="pagination-items text-center col-12">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <div class="modal-title" id="modal-basic-title">{{modalBook.volumeInfo.title}}</div>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="desc">{{modalBook.volumeInfo.description}}</div>
+    <div class="add-to-wishlist">
+      <div *ngIf="!addedToWishlist" class="button add d-flex align-items-center" (click)="addToWishlist()">
+        <img src="/assets/icons/add-to-wishlist.gif">
+        <span>Add to wish list</span>
+      </div>
+      <div *ngIf="addedToWishlist" class="button remove" (click)="removeFromWishlist()">
+        <img src="/assets/icons/add-to-wishlist-full.png">
+        <span>Remove from wish list</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

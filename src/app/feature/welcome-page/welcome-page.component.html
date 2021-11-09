@@ -1,0 +1,18 @@
+<div class="login-wrapper text-center">
+  <form [formGroup]="registerForm">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-wrapper">
+            <input type="text" class="form-control" [formControlName]="'userName'" [placeholder]="'User name'" (input)="onInput($event)">
+            <div *ngIf="showUserNameErrorMsg" class="error-msg text-left">
+              {{userNameErrorMsg}}
+            </div>
+          </div>
+          <button class="btn login-btn" (click)="logIn()">Log in</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
